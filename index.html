@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPRIET | Club Houses</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --accent: #6366f1;
+            --text: #f8fafc;
+            --border: #334155;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Header Section */
+        header {
+            background: #ffffff;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .college-logo {
+            height: 80px; /* Adjust based on your logo shape */
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .campus-img {
+            width: 100%;
+            max-width: 1000px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-college {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+            color: #cbd5e1;
+        }
+
+        /* Table Structure for Club Houses */
+        .house-table {
+            width: 95%;
+            max-width: 1100px;
+            margin: 0 auto 4rem;
+            border-collapse: separate;
+            border-spacing: 20px;
+            table-layout: fixed; /* Ensures both sides are equal */
+        }
+
+        .house-cell {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            vertical-align: top;
+            text-align: center;
+        }
+
+        .house-logo {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        h2 { color: var(--accent); margin-bottom: 10px; }
+        
+        .house-desc {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-bottom: 20px;
+            min-height: 60px; /* Keeps tables aligned */
+        }
+
+        .club-list-box {
+            text-align: left;
+            background: rgba(0,0,0,0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        .club-list-box ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        /* Action Button */
+        .cta-container {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .register-btn {
+            background: var(--accent);
+            color: white;
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .register-btn:hover {
+            background: #818cf8;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="imgs/kpriet-logo.png" alt="KPRIET Logo"   class="college-logo">
+    </header>
+
+    <div class="hero">
+        <img src="imgs/campus.jpg" alt="KPRIET Campus" class="campus-img">
+        <div class="about-college">
+            <p>KPR Institute of Engineering and Technology (KPRIET) is a premier institution dedicated to excellence in education and innovation. We empower students to become global leaders through holistic development and state-of-the-art facilities.</p>
+        </div>
+    </div>
+
+    <table class="house-table">
+        <tr>
+            <td class="house-cell">
+                <img src="imgs/sangamam-logo.png"  alt="Sangamam Logo" class="house-logo">
+                <h2>Sangamam</h2>
+                <h3>Cultural club house of KPRIET</h3>
+                <p class="house-desc">Focuses on cultural heritage, artistic expression, and social responsibility. It is the creative heartbeat of our campus life.</p>
+                <div class="club-list-box">
+                    <strong>Clubs under Sangamam:</strong>
+                    <ul>
+                        <li>Dance Club & Music Club</li>
+                        <li>Photography & Film Club</li>
+                        <li>Eco Club & Rotaract</li>
+                        <li>Tamil Mandram & Drama Club</li>
+                        <li>Youth Parliament</li>
+                    </ul>
+                </div>
+            </td>
+
+            <td class="house-cell">
+                <img src="imgs/ignitrron-logo.png" alt="Ignitrron Logo" class="house-logo">
+                <h2>Ignitrron </h2>
+                <h3>Technical club house of KPRIET</h3>
+                <p class="house-desc">The epicenter of technology and technical innovation. It fosters engineering skills and prepares students for the future of industry.</p>
+                <div class="club-list-box">
+                    <strong>Clubs under Ignitrron:</strong>
+                    <ul>
+                        <li>Software Development Club</li>
+                        <li>AR/VR & Game Development</li>
+                        <li>Astro & Science Clubs</li>
+                        <li>Quiz & Business Clubs</li>
+                        <li>Electronics & Robotics Club</li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="cta-container">
+        <a href="register.html" class="register-btn">Find My Perfect Club →</a>
+    </div>
+
+    <footer>
+        &copy; 2025 KPR Institute of Engineering and Technology. All Rights Reserved.
+    </footer>
+
+</body>
+</html>

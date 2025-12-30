@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KPRIET Smart Club Portal | Find Your Perfect Club</title>
+<meta name="description" content="Official KPRIET Clubzzzz - Discover your perfect club through smart recommendations">
+<style>
+/* ================= DESIGN SYSTEM ================= */
+:root {
+  --bg: #121212;
+  --surface: #1e1e1e;
+  --surface-elevated: #2a2a2a;
+  --text-primary: #fff1f2;
+  --text-secondary: #fecdd3;
+  --text-muted: #fda4af;
+  --accent: #fb7185;
+  --accent-hover: #fda4af;
+  --accent-glow: rgba(251, 113, 133, 0.35);
+  --border: #3f3f3f;
+  --success: #c38452;
+  --warning: #f97373;
+  --error: #f97373;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --shadow-sm: 0 6px 18px rgba(0,0,0,.45);
+  --shadow-md: 0 16px 40px rgba(0,0,0,.65);
+  --shadow-lg: 0 24px 60px rgba(0,0,0,.85);
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.25s ease;
+  --transition-slow: 0.4s ease;
+}
+
+[data-theme="light"] {
+  --bg: #f3ebe5;
+  --surface: #ffffff;
+  --surface-elevated: #f7eee7;
+  --text-primary: #2d1a10;
+  --text-secondary: #7b5740;
+  --text-muted: #a67c5e;
+  --accent: #c38452;
+  --accent-hover: #a06d42;
+  --accent-glow: rgba(195, 132, 82, 0.25);
+  --border: #ccb494;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,.08);
+  --shadow-md: 0 8px 24px rgba(0,0,0,.12);
+  --shadow-lg: 0 16px 48px rgba(0,0,0,.16);
+}
+
+/* ================= RESET & BASE ================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: radial-gradient(circle at top, #2b1a12 0%, var(--bg) 40%, #050302 100%);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background var(--transition-slow), color var(--transition-slow);
+  min-height: 100vh;
+}
+[data-theme="light"] body { background: radial-gradient(circle at top, #f9efe5 0%, var(--bg) 50%, #ebdfd3 100%); }
+
+/* ================= NAV & UTILS ================= */
+.progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent-hover)); z-index: 2000; transition: width 0.1s linear; }
+.top-nav { position: fixed; top: 0; left: 0; right: 0; height: 72px; background: rgba(28, 18, 14, 0.95); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); z-index: 1000; }
+[data-theme="light"] .top-nav { background: rgba(247, 238, 231, 0.95); }
+.nav-inner { max-width: 1200px; margin: auto; height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; }
+.nav-brand { font-weight: 700; font-size: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
+.nav-brand::before { content: "🎓"; }
+
+.theme-toggle { width: 44px; height: 44px; border: 1px solid var(--border); background: var(--surface-elevated); border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-base); }
+.back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 50px; height: 50px; border-radius: 50%; background: var(--accent); color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all var(--transition-base); z-index: 999; }
+.back-to-top.visible { opacity: 1; visibility: visible; }
+
+/* ================= CONTAINER & SECTIONS ================= */
+main { max-width: 700px; margin: 0 auto; padding: 120px 1.5rem 4rem; min-height: 100vh; }
+.container {
+  background: radial-gradient(circle at 0 0, var(--accent-glow), transparent 60%), var(--surface);
+  padding: 3rem; border-radius: var(--radius-lg); width: 100%; box-shadow: var(--shadow-lg); border: 1px solid var(--border); position: relative;
+}
+
+section { display: none; }
+section.active { display: block; animation: fadeIn 0.5s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ================= FORMS ================= */
+h1 { font-size: 2rem; margin-bottom: 0.5rem; text-align: center; color: var(--accent); }
+.subheading { text-align: center; margin-bottom: 2rem; color: var(--text-secondary); }
+label { display: block; margin: 1.2rem 0 0.4rem; font-weight: 600; font-size: 0.9rem; }
+input, select, textarea { 
+    width: 100%; padding: 0.8rem; background: var(--surface-elevated); border: 1px solid var(--border); 
+    border-radius: var(--radius-md); color: var(--text-primary); font-family: inherit; transition: border 0.3s;
+}
+input:focus { border-color: var(--accent); outline: none; }
+.row { display: flex; gap: 1rem; }
+.hidden { display: none !important; }
+
+/* ================= CARDS & BUTTONS ================= */
+.option-card {
+  display: flex; align-items: center; background: var(--surface-elevated); padding: 1rem; margin: 0.7rem 0;
+  border-radius: var(--radius-md); cursor: pointer; border: 1px solid var(--border); transition: 0.3s; gap: 1rem;
+}
+.option-card:hover { border-color: var(--accent); background: var(--surface); }
+.option-card.selected { border-color: var(--accent); background: var(--accent-glow); }
+.option-card input { width: 18px; height: 18px; margin: 0; accent-color: var(--accent); }
+
+button {
+  width: 100%; padding: 1rem; background: var(--accent); color: white; border: none; 
+  border-radius: var(--radius-md); font-weight: 700; cursor: pointer; margin-top: 1rem; transition: 0.3s;
+}
+button:hover { background: var(--accent-hover); transform: translateY(-2px); }
+.button-secondary { background: transparent; border: 1px solid var(--border); color: var(--text-primary); }
+
+.progress-track { height: 8px; background: var(--surface-elevated); border-radius: 4px; margin: 1rem 0 2rem; overflow: hidden; }
+#progressBar { height: 100%; width: 0%; background: var(--accent); transition: width 0.4s; }
+
+.result-box, .success-box { 
+    background: var(--surface-elevated); padding: 2rem; border-radius: var(--radius-lg); 
+    text-align: center; border: 1px solid var(--accent); margin: 1.5rem 0; 
+}
+.match-score { color: var(--accent); font-weight: 800; font-size: 1.2rem; margin: 0.5rem 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
+.chip { padding: 0.4rem 1rem; background: var(--accent); color: white; border-radius: 20px; font-size: 0.8rem; }
+
+.spinner { border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid var(--accent); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 2rem auto; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.8rem; color: var(--text-muted); }
+
+/* Custom Multi-select styling */
+select[multiple] { height: 150px; padding: 5px; }
+select[multiple] option { padding: 8px; border-bottom: 1px solid var(--border); }
+
+@media (max-width: 600px) {
+  .row { flex-direction: column; gap: 0; }
+  .container { padding: 1.5rem; }
+}
+</style>
+</head>
+
+<body>
+<div class="progress" id="progress"></div>
+
+<nav class="top-nav">
+  <div class="nav-inner">
+    <div class="nav-brand">KPRIET Clubzzzz</div>
+    <button class="theme-toggle" id="themeToggleGlobal">
+      <span id="themeIcon">🌙</span>
+    </button>
+  </div>
+</nav>
+
+<button class="back-to-top" id="backToTop">↑</button>
+
+<main>
+  <div class="container">
+    <section id="step-student" class="active">
+      <h1>🚀 Club Zone </h1>
+      <p class="subheading">Discover Your Perfect Club Match</p>
+      <form id="studentForm">
+        <label for="name">Full Name *</label>
+        <input id="name" required placeholder="Enter your full name">
+
+        <label for="email">College Email *</label>
+        <input id="email" type="email" required placeholder="yourname@kpriet.ac.in">
+
+        <div class="row">
+          <div style="flex:2">
+            <label for="dept">Department *</label>
+            <select id="dept" required>
+              <option value="" disabled selected>Select department</option>
+              <option>Computer Science and Engineering</option>
+              <option>Information Technology</option>
+              <option>Artificial Intelligence & Data Science</option>
+              <option>Electronics & Communication</option>
+              <option>Electrical & Electronics</option>
+              <option>Mechanical Engineering</option>
+              <option>Civil Engineering</option>
+              <option>Biomedical Engineering</option>
+            </select>
+          </div>
+          <div style="flex:1">
+            <label for="year">Year *</label>
+            <input id="year" type="number" min="1" max="4" required placeholder="1-4">
+          </div>
+        </div>
+
+        <label class="option-card" for="choice-find">
+          <input type="radio" id="choice-find" name="choice" value="find" checked>
+          <span>🎯 Find My Club (Smart Quiz)</span>
+        </label>
+
+        <label class="option-card" for="choice-direct">
+          <input type="radio" id="choice-direct" name="choice" value="direct">
+          <span>✅ I Already Know My Club</span>
+        </label>
+
+        <div id="directClubWrapper" class="hidden">
+          <label for="directClubs">Choose Your Club(s) (Ctrl + Click to select multiple) *</label>
+          <select id="directClubs" multiple>
+            <optgroup label="🎨 Sangamam Clubs">
+              <option>Graffio Club</option><option>Dance Club</option><option>Drama Club</option>
+              <option>Music Club</option><option>Photography Club</option><option>Eco Club</option>
+            </optgroup>
+            <optgroup label="⚡ Ignitrron Clubs">
+              <option>Software Development Club</option><option>Electronics Club</option>
+              <option>Quiz Club</option><option>Game Development Club</option><option>Astro Club</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <button type="submit">Continue →</button>
+      </form>
+    </section>
+
+    <section id="step-quiz">
+      <h2>🎯 Discovery Quiz</h2>
+      <p>Choose one or more Options that suits you well</p>
+      <div class="progress-track"><div id="progressBar"></div></div>
+      <h3 id="questionText" style="margin-bottom:1rem;"></h3>
+      <div id="options"></div>
+      <div class="row" style="margin-top:1.5rem;">
+        <button id="backBtn" class="button-secondary">← Back</button>
+        <button id="nextBtn">Next →</button>
+      </div>
+    </section>
+
+    <section id="step-result">
+      <h2>✨ Your Match</h2>
+      <div id="loadingSpinner" class="spinner"></div>
+      <div class="result-box" id="resultContent" style="display:none;">
+        <h1 id="resClub"></h1>
+        <p id="resConfidence" class="match-score"></p>
+        <p id="resReason"></p>
+        <button id="proceedBtn">Proceed to Registration →</button>
+        <button id="retakeBtn" class="button-secondary">Retake Quiz</button>
+      </div>
+    </section>
+
+    <section id="step-register">
+      <h2>📝 Confirm Details</h2>
+      <form id="finalForm">
+        <label>Name</label>
+        <input id="regName" readonly>
+        <label>Email</label>
+        <input id="regEmail" readonly>
+        <label>Club Selection(s)</label>
+        <input id="regClub" required>
+        <button type="submit">Complete Registration ✓</button>
+      </form>
+    </section>
+
+    <section id="step-success">
+      <div class="success-box">
+        <h1>🎉 Success!</h1>
+        <p>You have successfully registered for:</p>
+        <div id="successClubs" class="chips"></div>
+        <p style="margin-top:1rem;">We will let you know about further instructions soon.</p>
+        <button id="successHomeBtn">Back to Home</button>
+      </div>
+    </section>
+
+    <div class="footer">
+      <p>KPRIET | SATHYA R V © 2025 | Support: 24cs192kpriet.ac.in</p>
+    </div>
+  </div>
+</main>
+
+<script>
+class ClubPortal {
+    constructor() {
+        this.state = {
+            student: {},
+            quizAnswers: [], // Store keys per question
+            idx: 0,
+            suggested: "",
+            currentSection: "step-student",
+            theme: localStorage.getItem("theme") || "dark"
+        };
+
+        this.questions = [
+            {
+                q: "What type of activities excite you the most?",
+                options: [
+                    { label: "Building or coding tech projects", key: "tech" },
+                    { label: "Designing posters or videos", key: "creative" },
+                    { label: "Hosting events or public speaking", key: "speaking" },
+                    { label: "Managing teams and planning", key: "leadership" }
+                ]
+            },
+            {
+                q: "Which environment do you thrive in?",
+                options: [
+                    { label: "Hackathons and logical challenges", key: "tech" },
+                    { label: "Creative workshops and galleries", key: "creative" },
+                    { label: "Debates and presentations", key: "speaking" },
+                    { label: "Community service and coordination", key: "leadership" }
+                ]
+            },
+            {
+                q: "What is your primary goal this year?",
+                options: [
+                    { label: "Mastering a new technical skill", key: "tech" },
+                    { label: "Expressing my artistic side", key: "creative" },
+                    { label: "Improving my social confidence", key: "speaking" },
+                    { label: "Making a significant campus impact", key: "leadership" }
+                ]
+            }
+        ];
+
+        this.init();
+    }
+
+    init() {
+        this.applyTheme();
+        this.bindEvents();
+        this.updateScrollProgress();
+    }
+
+    bindEvents() {
+        // Theme Toggle
+        document.getElementById("themeToggleGlobal").onclick = () => {
+            this.state.theme = this.state.theme === "dark" ? "light" : "dark";
+            this.applyTheme();
+        };
+
+        // Scroll events
+        window.onscroll = () => {
+            this.updateScrollProgress();
+            const btt = document.getElementById("backToTop");
+            window.scrollY > 300 ? btt.classList.add("visible") : btt.classList.remove("visible");
+        };
+
+        document.getElementById("backToTop").onclick = () => window.scrollTo({top:0, behavior:'smooth'});
+
+        // Navigation & Choice
+        document.getElementsByName("choice").forEach(rad => {
+            rad.onchange = (e) => {
+                document.getElementById("directClubWrapper").classList.toggle("hidden", e.target.value === "find");
+                // Visual feedback for cards
+                document.querySelectorAll(".option-card").forEach(c => c.classList.remove("selected"));
+                e.target.closest(".option-card").classList.add("selected");
+            };
+        });
+
+        // Form Submissions
+        document.getElementById("studentForm").onsubmit = (e) => this.handleInitialSubmit(e);
+        document.getElementById("nextBtn").onclick = () => this.handleQuizNext();
+        document.getElementById("backBtn").onclick = () => this.handleQuizBack();
+        document.getElementById("proceedBtn").onclick = () => this.goToRegister();
+        document.getElementById("finalForm").onsubmit = (e) => this.handleFinalSubmit(e);
+        document.getElementById("successHomeBtn").onclick = () => location.reload();
+        document.getElementById("retakeBtn").onclick = () => this.showSection("step-quiz");
+    }
+
+    applyTheme() {
+        document.documentElement.setAttribute("data-theme", this.state.theme);
+        localStorage.setItem("theme", this.state.theme);
+        document.getElementById("themeIcon").textContent = this.state.theme === "dark" ? "🌙" : "☀️";
+    }
+
+    updateScrollProgress() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("progress").style.width = scrolled + "%";
+    }
+
+    showSection(id) {
+        document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+        window.scrollTo(0,0);
+        this.state.currentSection = id;
+    }
+
+    handleInitialSubmit(e) {
+        e.preventDefault();
+        const choice = document.querySelector('input[name="choice"]:checked').value;
+        
+        this.state.student = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            dept: document.getElementById("dept").value,
+            year: document.getElementById("year").value
+        };
+
+        if(choice === "direct") {
+            const selected = Array.from(document.getElementById("directClubs").selectedOptions).map(o => o.value);
+            if(selected.length === 0) return alert("Please select at least one club");
+            this.state.suggested = selected.join(", ");
+            this.goToRegister();
+        } else {
+            this.state.idx = 0;
+            this.state.quizAnswers = [];
+            this.loadQuestion();
+            this.showSection("step-quiz");
+        }
+    }
+
+    loadQuestion() {
+        const q = this.questions[this.state.idx];
+        document.getElementById("questionText").textContent = q.q;
+        const optCont = document.getElementById("options");
+        optCont.innerHTML = "";
+        
+        q.options.forEach((opt, i) => {
+            const div = document.createElement("label");
+            div.className = "option-card";
+            div.innerHTML = `<input type="checkbox" value="${opt.key}"> <span>${opt.label}</span>`;
+            div.onclick = () => div.classList.toggle("selected", div.querySelector('input').checked);
+            optCont.appendChild(div);
+        });
+
+        document.getElementById("progressBar").style.width = ((this.state.idx / this.questions.length) * 100) + "%";
+    }
+
+    handleQuizNext() {
+        const selected = Array.from(document.querySelectorAll("#options input:checked")).map(i => i.value);
+        if(selected.length === 0) return alert("Select at least one option");
+
+        this.state.quizAnswers[this.state.idx] = selected;
+
+        if(this.state.idx < this.questions.length - 1) {
+            this.state.idx++;
+            this.loadQuestion();
+        } else {
+            this.calculateResult();
+        }
+    }
+
+    handleQuizBack() {
+        if(this.state.idx > 0) {
+            this.state.idx--;
+            this.loadQuestion();
+        } else {
+            this.showSection("step-student");
+        }
+    }
+
+    calculateResult() {
+        this.showSection("step-result");
+        document.getElementById("loadingSpinner").classList.remove("hidden");
+        document.getElementById("resultContent").style.display = "none";
+
+        setTimeout(() => {
+            const flatResults = this.state.quizAnswers.flat();
+            const counts = {};
+            flatResults.forEach(key => counts[key] = (counts[key] || 0) + 1);
+            
+            const winner = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+            const clubs = {
+                tech: ["Software Development Club", "Innovation matches your tech-driven logic."],
+                creative: ["Graffio Club", "Your artistic flair is a perfect fit for Graffio."],
+                speaking: ["Sweet Talkerz", "Your voice deserves the stage at Sweet Talkerz."],
+                leadership: ["Rotaract Club", "Your leadership can drive real change here."]
+            };
+
+            const [clubName, reason] = clubs[winner];
+            this.state.suggested = clubName;
+
+            document.getElementById("loadingSpinner").classList.add("hidden");
+            document.getElementById("resultContent").style.display = "block";
+            document.getElementById("resClub").textContent = clubName;
+            document.getElementById("resConfidence").textContent = "95% Personality Match";
+            document.getElementById("resReason").textContent = reason;
+        }, 1500);
+    }
+
+    goToRegister() {
+        document.getElementById("regName").value = this.state.student.name;
+        document.getElementById("regEmail").value = this.state.student.email;
+        document.getElementById("regClub").value = this.state.suggested;
+        this.showSection("step-register");
+    }
+
+    handleFinalSubmit(e) {
+        e.preventDefault();
+        const finalClubs = document.getElementById("regClub").value.split(",");
+        const chipCont = document.getElementById("successClubs");
+        chipCont.innerHTML = "";
+        
+        finalClubs.forEach(c => {
+            const span = document.createElement("span");
+            span.className = "chip";
+            span.textContent = c.trim();
+            chipCont.appendChild(span);
+        });
+
+        this.showSection("step-success");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => new ClubPortal());
+</script>
+</body>
+</html>
