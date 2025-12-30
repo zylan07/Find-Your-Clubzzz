@@ -115,9 +115,8 @@ flowchart TD
     Quiz --> QuizResult[See matched club]
     QuizResult --> Confirm[Confirm registration]
     Confirm --> Success[Success message]
-    Choice -->|Direct selection| DirectSelect[Choose club(s)]
-    DirectSelect --> Confirm
-
+    Choice -->|Direct selection| SelectClub["Choose club(s)"]
+    SelectClub --> Confirm
 
 ```
 
