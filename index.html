@@ -3,197 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KPRIET | Club Houses</title>
+    <title>KPRIET | The Supreme Nexus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,900;1,900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0f172a;
-            --surface: #1e293b;
+            --bg: #020617;
             --accent: #6366f1;
-            --text: #f8fafc;
-            --border: #334155;
+            --sangamam: #f43f5e;
+            --ignitrron: #0ea5e9;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
+        * { box-sizing: border-box; cursor: default; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
             margin: 0;
-            padding: 0;
-            line-height: 1.6;
+            background: var(--bg);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* Header Section */
+        /* --- CYBER-FLUID BACKGROUND --- */
+        .viewport-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 100%);
+        }
+
+        .fluid-orb {
+            position: absolute;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            top: -10%; left: -10%;
+            filter: blur(100px);
+            animation: moveOrb 20s infinite alternate;
+        }
+
+        @keyframes moveOrb {
+            to { transform: translate(50%, 30%); }
+        }
+
+        /* --- SUPREME HEADER & ALIGNED LOGO --- */
         header {
-            background: #ffffff;
-            padding: 1rem;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            perspective: 1200px;
+        }
+
+        .logo-box {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.2s cubic-bezier(0.2, 1, 0.3, 1);
             text-align: center;
-            border-bottom: 4px solid var(--accent);
         }
 
-        .college-logo {
-            height: 80px; /* Adjust based on your logo shape */
+        .supreme-text {
+            font-family: 'Exo 2', sans-serif;
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 900;
+            font-style: italic;
+            margin: 0;
+            line-height: 0.8;
+            background: linear-gradient(to bottom, #fff, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.4));
         }
 
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 2rem;
+        .sub-brand {
+            letter-spacing: 12px;
+            font-weight: 300;
+            opacity: 0.5;
+            margin-top: 2rem;
+            text-transform: uppercase;
         }
 
-        .campus-img {
+        /* --- BENTO SECTION ALIGNMENT --- */
+        .content-wrap {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .bento-campus {
             width: 100%;
-            max-width: 1000px;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            height: 60vh;
+            border-radius: 40px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 6rem;
+            position: relative;
+        }
+
+        .bento-campus img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s ease;
+        }
+
+        .bento-campus:hover img { transform: scale(1.05); }
+
+        /* --- SYMMETRICAL HOUSE GRID --- */
+        .house-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            align-items: stretch;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 5rem 3rem;
+            text-align: center;
+            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.05), transparent);
+            transform: translateX(-100%);
+            transition: 0.8s;
+        }
+
+        .glass-card:hover::before { transform: translateX(100%); }
+
+        .glass-card:hover {
+            transform: translateY(-20px) scale(1.02);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+        }
+
+        /* Fixed Image Alignment & Sizing */
+        .supreme-logo {
+            width: 320px;
+            height: 320px;
+            object-fit: contain;
+            margin: 0 auto 2rem;
+            display: block;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+            transition: 0.5s;
+        }
+
+        .glass-card:hover .supreme-logo { transform: scale(1.1) rotate(3deg); }
+
+        .house-title {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 3.5rem;
             margin-bottom: 1.5rem;
         }
 
-        .about-college {
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            font-size: 1.1rem;
-            color: #cbd5e1;
+        .club-tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 2rem;
         }
 
-        /* Table Structure for Club Houses */
-        .house-table {
-            width: 95%;
-            max-width: 1100px;
-            margin: 0 auto 4rem;
-            border-collapse: separate;
-            border-spacing: 20px;
-            table-layout: fixed; /* Ensures both sides are equal */
-        }
-
-        .house-cell {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 2rem;
-            vertical-align: top;
-            text-align: center;
-        }
-
-        .house-logo {
-            width: 150px;
-            height: 150px;
-            object-fit: contain;
-            margin-bottom: 1rem;
-        }
-
-        h2 { color: var(--accent); margin-bottom: 10px; }
-        
-        .house-desc {
-            font-size: 0.95rem;
-            color: #94a3b8;
-            margin-bottom: 20px;
-            min-height: 60px; /* Keeps tables aligned */
-        }
-
-        .club-list-box {
-            text-align: left;
-            background: rgba(0,0,0,0.2);
-            padding: 1rem;
-            border-radius: 10px;
+        .tag {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
             font-size: 0.9rem;
-        }
-
-        .club-list-box ul {
-            padding-left: 20px;
-            margin: 0;
-        }
-
-        /* Action Button */
-        .cta-container {
-            text-align: center;
-            margin-bottom: 5rem;
-        }
-
-        .register-btn {
-            background: var(--accent);
-            color: white;
-            padding: 1.2rem 3rem;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 50px;
+            color: #94a3b8;
             transition: 0.3s;
-            display: inline-block;
         }
 
-        .register-btn:hover {
-            background: #818cf8;
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
-        }
+        .glass-card:hover .tag { color: #fff; border-color: rgba(255,255,255,0.2); }
 
-        footer {
+        /* --- THE ASCENDED BUTTON --- */
+        .footer-cta {
+            padding: 15rem 0;
             text-align: center;
-            padding: 2rem;
-            font-size: 0.8rem;
-            border-top: 1px solid var(--border);
+        }
+
+        .nexus-trigger {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-decoration: none;
+            color: #000;
+            background: #fff;
+            padding: 1.5rem 6rem;
+            border-radius: 20px;
+            position: relative;
+            display: inline-block;
+            transition: 0.5s;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(99, 102, 241, 0.5);
+        }
+
+        .nexus-trigger::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease;
+            z-index: -1;
+        }
+
+        .nexus-trigger:hover {
+            color: #fff;
+            transform: scale(1.1);
+            box-shadow: 0 0 80px var(--accent);
+        }
+
+        .nexus-trigger:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        @media (max-width: 1000px) {
+            .house-grid { grid-template-columns: 1fr; }
+            .supreme-logo { width: 220px; height: 220px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <img src="imgs/kpriet-logo.png" alt="KPRIET Logo"   class="college-logo">
+    <div class="viewport-bg">
+        <div class="fluid-orb"></div>
+    </div>
+
+    <header id="main-header">
+        <div class="logo-box" id="tilt-box">
+            <h1 class="supreme-text">KPRIET</h1>
+            <div class="sub-brand">Academic Excellence</div>
+        </div>
     </header>
 
-    <div class="hero">
-        <img src="imgs/campus.jpg" alt="KPRIET Campus" class="campus-img">
-        <div class="about-college">
-            <p>KPR Institute of Engineering and Technology (KPRIET) is a premier institution dedicated to excellence in education and innovation. We empower students to become global leaders through holistic development and state-of-the-art facilities.</p>
+    <div class="content-wrap">
+        <div class="bento-campus">
+            <img src="imgs/campus.jpg" alt="KPRIET Elite Campus">
+        </div>
+
+        <div class="house-grid">
+            <div class="glass-card">
+                <img src="imgs/sangamam-logo.png" alt="Sangamam House" class="supreme-logo">
+                <h2 class="house-title" style="color: var(--sangamam);">SANGAMAM</h2>
+                <p style="opacity: 0.6; font-size: 1.2rem;">The Cultural Nexus. Celebrating the harmony of arts, humanity, and social impact.</p>
+                <div class="club-tag-cloud">
+                    <span class="tag">Music</span>
+                    <span class="tag">Dance</span>
+                    <span class="tag">Photography</span>
+                    <span class="tag">Rotaract</span>
+                    <span class="tag">Parliament</span>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <img src="imgs/ignitrron-logo.png" alt="Ignitrron House" class="supreme-logo">
+                <h2 class="house-title" style="color: var(--ignitrron);">IGNITRRON</h2>
+                <p style="opacity: 0.6; font-size: 1.2rem;">The Technical Nexus. Pioneering the future of logic, robotics, and innovation.</p>
+                <div class="club-tag-cloud">
+                    <span class="tag">Software</span>
+                    <span class="tag">Astro</span>
+                    <span class="tag">AR/VR</span>
+                    <span class="tag">Robotics</span>
+                    <span class="tag">Business</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-cta">
+            <a href="register.html" class="nexus-trigger">INITIATE ACCESS</a>
         </div>
     </div>
 
-    <table class="house-table">
-        <tr>
-            <td class="house-cell">
-                <img src="imgs/sangamam-logo.png"  alt="Sangamam Logo" class="house-logo">
-                <h2>Sangamam</h2>
-                <h3>Cultural club house of KPRIET</h3>
-                <p class="house-desc">Focuses on cultural heritage, artistic expression, and social responsibility. It is the creative heartbeat of our campus life.</p>
-                <div class="club-list-box">
-                    <strong>Clubs under Sangamam:</strong>
-                    <ul>
-                        <li>Dance Club & Music Club</li>
-                        <li>Photography & Film Club</li>
-                        <li>Eco Club & Rotaract</li>
-                        <li>Tamil Mandram & Drama Club</li>
-                        <li>Youth Parliament</li>
-                    </ul>
-                </div>
-            </td>
-
-            <td class="house-cell">
-                <img src="imgs/ignitrron-logo.png" alt="Ignitrron Logo" class="house-logo">
-                <h2>Ignitrron </h2>
-                <h3>Technical club house of KPRIET</h3>
-                <p class="house-desc">The epicenter of technology and technical innovation. It fosters engineering skills and prepares students for the future of industry.</p>
-                <div class="club-list-box">
-                    <strong>Clubs under Ignitrron:</strong>
-                    <ul>
-                        <li>Software Development Club</li>
-                        <li>AR/VR & Game Development</li>
-                        <li>Astro & Science Clubs</li>
-                        <li>Quiz & Business Clubs</li>
-                        <li>Electronics & Robotics Club</li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-    </table>
-
-    <div class="cta-container">
-        <a href="register.html" class="register-btn">Find My Perfect Club →</a>
-    </div>
-
-    <footer>
-        &copy; 2025 KPR Institute of Engineering and Technology. All Rights Reserved.
+    <footer style="text-align: center; padding: 5rem; border-top: 1px solid var(--glass-border); opacity: 0.3;">
+        <p>&copy; 2025 KPR Institute of Engineering and Technology. The Future is Here.</p>
     </footer>
 
+    <script>
+        // Supreme Aligned Magnetic Tilt
+        const header = document.getElementById('main-header');
+        const box = document.getElementById('tilt-box');
+
+        header.addEventListener('mousemove', (e) => {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const mouseX = e.clientX - centerX;
+            const mouseY = e.clientY - centerY;
+            
+            // Fixed math for perfect alignment
+            const rotateX = (mouseY / centerY) * -15; 
+            const rotateY = (mouseX / centerX) * 15;
+
+            box.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        header.addEventListener('mouseleave', () => {
+            box.style.transform = `rotateX(0deg) rotateY(0deg)`;
+        });
+    </script>
 </body>
 </html>
